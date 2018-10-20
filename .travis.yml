@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6.1"
+install:
+  - pip install -r requirements.txt
+#Specify what command to run test
+script:
+  - pytest --cov
+  - coverage
+  - coverage3 report
+  - coveralls 
+after_success:
+- coveralls
