@@ -13,7 +13,7 @@ class TestSaleIntError(TestCase):
         """
         Method for testing if quantity and price are integers
         """
-        post = CreateItem('sales').create_item('Iphone', '3', 100000)
+        post = CreateItem().create_sale('Iphone', '3', 100000)
 
         resp = json.loads(post.data.decode())
         self.assertFalse(resp['success'], False)

@@ -12,9 +12,9 @@ class TestGetSales(TestCase):
         """
         Method for testing endpoint of getting all sales
         """
-        CreateItem('sales').create_item('Iphone', 3, 100000)
-        CreateItem('sales').create_item('Nokia', 3, 140000)
-        CreateItem('sales').create_item('Sony', 3, 300000)
+        CreateItem().create_sale('Iphone', 3, 100000)
+        CreateItem().create_sale('Nokia', 3, 140000)
+        CreateItem().create_sale('Sony', 3, 300000)
 
-        req = CreateItem('sales').client().get('/api/v1/sales/')
+        req = CreateItem().client().get('/api/v1/sales/')
         self.assertEqual(req.status_code, 200)

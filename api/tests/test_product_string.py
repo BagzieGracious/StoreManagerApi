@@ -13,7 +13,7 @@ class TestProductStringError(TestCase):
         """
         Method for testing if product has string errors
         """
-        post = CreateItem('products').create_item(2, 3, 10)
+        post = CreateItem().create_product(1, "best smart phone", 3, 5)
 
         resp = json.loads(post.data.decode())
         self.assertFalse(resp['success'], False)

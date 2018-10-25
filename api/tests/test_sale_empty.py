@@ -13,7 +13,7 @@ class TestSaleEmptyError(TestCase):
         """
         Method for testing if there is any empty field
         """
-        post = CreateItem('sales').create_item('Iphone', '', 100000)
+        post = CreateItem().create_sale('Iphone', '', 100000)
 
         resp = json.loads(post.data.decode())
         self.assertFalse(resp['success'], False)

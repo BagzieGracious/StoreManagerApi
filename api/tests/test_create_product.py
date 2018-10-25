@@ -14,7 +14,7 @@ class TestCreateProduct(TestCase):
         """
         Method returns create products results
         """
-        post = CreateItem('products').create_item('Iphone', 3, 10)
+        post = CreateItem().create_product('Iphone', "best smart phone", 3, 5)
 
         resp = json.loads(post.data.decode())
         self.assertTrue(resp['success'], True)

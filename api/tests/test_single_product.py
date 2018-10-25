@@ -12,9 +12,9 @@ class TestSingleProducts(TestCase):
         """
         Method for testing if product exists
         """
-        CreateItem('products').create_item('Iphone', 3, 10)
-        CreateItem('products').create_item('Nokia', 3, 10)
-        CreateItem('products').create_item('Sony', 3, 10)
+        CreateItem().create_product('Iphone', "best smart phone", 3, 5)
+        CreateItem().create_product('Nokia', "best smart phone", 3, 5)
+        CreateItem().create_product('Sony', "best smart phone", 3, 5)
 
-        req = CreateItem('products').client().get('/api/v1/products/5')
+        req = CreateItem().client().get('/api/v1/products/5')
         self.assertEqual(req.status_code, 200)

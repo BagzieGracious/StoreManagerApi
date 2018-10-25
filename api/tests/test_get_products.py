@@ -12,9 +12,9 @@ class TestGetProducts(TestCase):
         """
         Method for testing endpoint of getting all products
         """
-        CreateItem('products').create_item('Iphone', 3, 10)
-        CreateItem('products').create_item('Nokia', 3, 10)
-        CreateItem('products').create_item('Sony', 3, 10)
+        CreateItem().create_product('Iphone', "best smart phone", 3, 5)
+        CreateItem().create_product('Nokia', "best smart phone", 3, 5)
+        CreateItem().create_product('Sony', "best smart phone", 3, 5)
 
-        req = CreateItem('products').client().get('/api/v1/products/')
+        req = CreateItem().client().get('/api/v1/products/')
         self.assertEqual(req.status_code, 200)

@@ -13,7 +13,7 @@ class TestSaleStringError(TestCase):
         """
         Method for testing if sale has string errors
         """
-        post = CreateItem('sales').create_item(2, 3, 10)
+        post = CreateItem().create_sale(2, 3, 10)
 
         resp = json.loads(post.data.decode())
         self.assertFalse(resp['success'], False)

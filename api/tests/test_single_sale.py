@@ -12,9 +12,9 @@ class TestSingleSale(TestCase):
         """
         Method for testing if sale exists
         """
-        CreateItem('sales').create_item('Iphone', 3, 143500)
-        CreateItem('sales').create_item('Nokia', 3, 100000)
-        CreateItem('sales').create_item('Sony', 3, 1898000)
+        CreateItem().create_sale('Iphone', 3, 143500)
+        CreateItem().create_sale('Nokia', 3, 100000)
+        CreateItem().create_sale('Sony', 3, 1898000)
 
-        req = CreateItem('products').client().get('/api/v1/sales/5')
+        req = CreateItem().client().get('/api/v1/sales/5')
         self.assertEqual(req.status_code, 200)
