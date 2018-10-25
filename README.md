@@ -1,8 +1,7 @@
 # StoreManagerApi
 
 [![Build Status](https://travis-ci.com/BagzieGracious/StoreManagerApi.svg?branch=feature)](https://travis-ci.com/BagzieGracious/StoreManagerApi)                                                                                 [![Maintainability](https://api.codeclimate.com/v1/badges/54c0c8b76094d0d34563/maintainability)](https://codeclimate.com/github/BagzieGracious/StoreManagerApi/maintainability) 
- [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3cd1cf89c2e54b999fceee410fd64452)](https://www.codacy.com/app/BagzieGracious/StoreManagerApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BagzieGracious/StoreManagerApi&amp;utm_campaign=Badge_Grade)             [![Coverage Status](https://coveralls.io/repos/github/BagzieGracious/StoreManagerApi/badge.svg?branch=feature)](https://coveralls.io/github/BagzieGracious/StoreManagerApi?branch=feature)                                                              [![codecov](https://codecov.io/gh/BagzieGracious/StoreManagerApi/branch/feature/graph/badge.svg)](https://codecov.io/gh/BagzieGracious/StoreManagerApi)
-
+ [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3cd1cf89c2e54b999fceee410fd64452)](https://www.codacy.com/app/BagzieGracious/StoreManagerApi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BagzieGracious/StoreManagerApi&amp;utm_campaign=Badge_Grade)             [![Coverage Status](https://coveralls.io/repos/github/BagzieGracious/StoreManagerApi/badge.svg?branch=feature)](https://coveralls.io/github/BagzieGracious/StoreManagerApi?branch=feature)                                                              
 # StoreManagerApi
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
 
