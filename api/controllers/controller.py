@@ -40,7 +40,7 @@ class Controller:
         data = request.get_json()
 
         if self.typ == 'sales':
-            values = DataValidation(data, self.typ).validation()
+            values = DataValidation().validation(data['product'], data['product'], data['price'])
             if isinstance(values, bool):
                 obj = {
                     "sale_id": len(self.sale.get_item()) + 1,
@@ -52,7 +52,7 @@ class Controller:
             return values
 
         if self.typ == 'products':
-            values = DataValidation(data, self.typ).validation()
+            values = DataValidation().validation(data['product'], data['product'], data['minQuantity'])
             if isinstance(values, bool):
                 obj = {
                     "product_id": len(self.product.get_item()) + 1,
