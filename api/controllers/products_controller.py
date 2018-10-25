@@ -4,14 +4,16 @@ Module to handle products requests via endpoints
 
 from flask import request, jsonify
 from flask.views import MethodView
-from api.models.product_model import ProductModel
+from api.models.model import Model
+from api.data.data import Data
 from api.config.data_validation import DataValidation
 
 class ProductsController(MethodView):
     """
     Products controller that inherits the method view
     """
-    allProducts = ProductModel.get_products_data()
+    products = Model(Data.all_products())
+
 
     @staticmethod
     def get(product_id=None):
@@ -19,11 +21,8 @@ class ProductsController(MethodView):
         Method that handles view of products
         """
         if product_id is None:
-            return jsonify({
-                "success":True,
-                "payload":ProductModel.get_products_data()
-            }), 200
-        return ProductModel.get_products_data(product_id)
+            return ProductsController.products.get_item()
+        return ProductsController.products.get_item(product_id, 'product_id')
 
     @staticmethod
     def post():
@@ -36,11 +35,11 @@ class ProductsController(MethodView):
 
         if isinstance(post_values, bool):
             data_object = {
-                "product_id": len(ProductsController.allProducts) + 1,
+                "product_id": len(ProductsController.products.get_item()) + 1,
                 "product": post_data['product'],
                 "description": post_data['description'],
                 "quantity": post_data['quantity'],
                 "minQuantity": post_data['minQuantity']
             }
-            return ProductModel.create_product(data_object)
+            return ProductsController.products.create_item(data_object)
         return post_values
