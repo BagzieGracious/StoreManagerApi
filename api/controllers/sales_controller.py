@@ -4,14 +4,15 @@ Module to handle sales requests via endpoints
 
 from flask import request, jsonify
 from flask.views import MethodView
-from api.models.sales_model import SalesModel
+from api.models.model import Model
+from api.data.data import Data
 from api.config.data_validation import DataValidation
 
 class SalesController(MethodView):
     """
     Sales controller that inherits the method view
     """
-    all_sales = SalesModel.get_all_sales()
+    sales = Model(Data.all_sales())
 
     @staticmethod
     def get(sale_id=None):
@@ -19,8 +20,8 @@ class SalesController(MethodView):
         Method that handles view of sales records
         """
         if sale_id is None:
-            return jsonify({"success":True, "payload":SalesModel.get_all_sales()}), 200
-        return SalesModel.get_all_sales(sale_id)
+            return SalesController.sales.get_item()
+        return SalesController.sales.get_item(sale_id, 'sale_id')
 
     @staticmethod
     def post():
@@ -32,10 +33,10 @@ class SalesController(MethodView):
 
         if isinstance(post_values, bool):
             data_object = {
-                "sale_id": len(SalesController.all_sales) + 1,
+                "sale_id": len(SalesController.sales.get_item()) + 1,
                 "product": post_data['product'],
                 "quantity": post_data['quantity'],
                 "price": post_data['price']
             }
-            return SalesModel.create_sales(data_object)
+            return SalesController.sales.create_item(data_object)
         return post_values
