@@ -1,8 +1,6 @@
 # StoreManagerApi
 
-[![Build Status](https://travis-ci.com/BagzieGracious/StoreManagerApi.svg?branch=feature)](https://travis-ci.com/BagzieGracious/StoreManagerApi) [![Coverage Status](https://coveralls.io/repos/github/BagzieGracious/StoreManagerApi/badge.svg?branch=feature)](https://coveralls.io/github/BagzieGracious/StoreManagerApi?branch=feature)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/93c82592f279a6463342/maintainability)](https://codeclimate.com/github/BagzieGracious/StoreManagerApi/maintainability)
+[![Build Status](https://travis-ci.com/BagzieGracious/StoreManagerApi.svg?branch=feature)](https://travis-ci.com/BagzieGracious/StoreManagerApi) [![Coverage Status](https://coveralls.io/repos/github/BagzieGracious/StoreManagerApi/badge.svg?branch=feature)](https://coveralls.io/github/BagzieGracious/StoreManagerApi?branch=feature) [![Maintainability](https://api.codeclimate.com/v1/badges/54c0c8b76094d0d34563/maintainability)](https://codeclimate.com/github/BagzieGracious/StoreManagerApi/maintainability)
 
 # StoreManagerApi
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
