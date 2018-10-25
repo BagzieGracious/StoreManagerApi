@@ -23,7 +23,7 @@ Store Manager is a web application that helps store owners manage sales and prod
 - Store owner can see sales and can filter by attendants
 - Store owner can add, modify and delete products
 
- Use the following endpoints to perform the specified tasks
+ Use the following endpoints to perform the specified tasks 
     
     EndPoint                                           | Functionality
     ------------------------                           | ----------------------
