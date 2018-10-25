@@ -1,14 +1,14 @@
 """
 Module for rendering routes
 """
-from api.controllers.controller import Controller
+
+from api.controllers.products_controller import ProductsController
+from api.controllers.sales_controller import SalesController
 
 class Routes:
     """
     Create a Routes class
     """
-    prod = Controller('products')
-    sales = Controller('sales')
 
     @staticmethod
     def fetch_routes(app):
@@ -16,33 +16,47 @@ class Routes:
         static method for fetching all routes
         """
 
-        #default endpoint
+        #default route
         @app.route('/')
         def index():
-            return "<h1>Welcome to store manager</h1> <p>The perfect solution for you.</p>"
+            return "<h1>Welcome to Store Manager</h1> <p>where quality matters</p>"
 
-        #endpoints for products
-        @app.route('/api/v1/products/', methods=['GET'], strict_slashes=False)
-        def get_all_products():
-            return Routes.prod.get()
+        #products endpoints
+        app.add_url_rule(
+            '/api/v1/products/',
+            view_func=ProductsController.as_view('getProducts'),
+            methods=['GET'],
+            strict_slashes=False
+        )
+        app.add_url_rule(
+            '/api/v1/products/<int:product_id>',
+            view_func=ProductsController.as_view('getSingleProduct'),
+            methods=['GET'],
+            strict_slashes=False
+        )
+        app.add_url_rule(
+            '/api/v1/products/',
+            view_func=ProductsController.as_view('createProduct'),
+            methods=['POST'],
+            strict_slashes=False
+        )
 
-        @app.route('/api/v1/products/<int:product_id>', methods=['GET'], strict_slashes=False)
-        def get_single_product(product_id):
-            return Routes.prod.get(product_id)
-
-        @app.route('/api/v1/products/', methods=['POST'], strict_slashes=False)
-        def create_product():
-            return Routes.prod.post()
-
-        #endpoints for sales
-        @app.route('/api/v1/sales/', methods=['GET'], strict_slashes=False)
-        def get_all_sales():
-            return Routes.sales.get()
-
-        @app.route('/api/v1/sales/<int:sale_id>', methods=['GET'], strict_slashes=False)
-        def get_single_sale(sale_id):
-            return Routes.sales.get(sale_id)
-
-        @app.route('/api/v1/sales/', methods=['POST'], strict_slashes=False)
-        def create_sales():
-            return Routes.sales.post()
+        #sales endpoints
+        app.add_url_rule(
+            '/api/v1/sales/',
+            view_func=SalesController.as_view('getSales'),
+            methods=['GET'],
+            strict_slashes=False
+        )
+        app.add_url_rule(
+            '/api/v1/sales/<int:sale_id>',
+            view_func=SalesController.as_view('getSingleSale'),
+            methods=['GET'],
+            strict_slashes=False
+        )
+        app.add_url_rule(
+            '/api/v1/sales/',
+            view_func=SalesController.as_view('createSale'),
+            methods=['POST'],
+            strict_slashes=False
+        )
