@@ -7,95 +7,76 @@ class DataValidation:
     """
     Class with methods to return validation values
     """
-    @staticmethod
-    def product_int_values(quantity, min_quantity):
-        """
-        Method tests if the params are all integers
-        """
-        if isinstance(quantity, int) and isinstance(min_quantity, int):
-            return True
-        return False
+    def __init__(self, req, typ):
+        self.req = req
+        self.typ = typ
 
-    @staticmethod
-    def product_str_values(pdt, dsn, pdt_date):
+    def item_int_errors(self):
         """
-        Method tests if the params are all strings
+        Method for checking int errors
         """
-        if isinstance(pdt, str) and isinstance(dsn, str) and isinstance(pdt_date, str):
-            return True
-        return False
-
-    @staticmethod
-    def product_empty(qty, min_qty, pdct, dsn, pdt_date):
-        """
-        Method tests if the params are not empty
-        """
-        if qty != "" and min_qty != "" and pdct != "" and dsn != "" and pdt_date != "":
-            return True
-        return False
-
-    @staticmethod
-    def validate_product(qty, min_qty, pdct, dsn, pdt_date):
-        """"
-        Method returns the validation products status
-        """
-        if DataValidation.product_empty(qty, min_qty, pdct, dsn, pdt_date):
-            if DataValidation.product_str_values(pdct, dsn, pdt_date):
-                if DataValidation.product_int_values(qty, min_qty):
-                    return True
-                return jsonify({
-                    "status":"Bad Request",
-                    "message": "quanity and minQuantity fields should be integers"
-                }), 400
+        if self.typ == 'sales':
+            if isinstance(self.req['quantity'], int) and isinstance(self.req['price'], int):
+                return True
             return jsonify({
-                "status":"Bad Request",
-                "message": "product, description, and productDateAdded fields should be strings"
+                "success":False,
+                "error":{
+                    "code":400,
+                    "message":"quantity and price should be integers"
+                }
             }), 400
-        return jsonify({"status":"Bad Request", "message": "No field should be empty"}), 400
 
-    @staticmethod
-    def sales_int_values(quantity, price):
-        """
-        Method tests if the params are all integers
-        """
-        if isinstance(quantity, int) and isinstance(price, int):
-            return True
-        return False
-
-    @staticmethod
-    def sales_str_values(product, sales_date_added):
-        """
-        Method tests if the params are all strings
-        """
-        if isinstance(product, str) and isinstance(sales_date_added, str):
-            return True
-        return False
-
-    @staticmethod
-    def sales_empty(quantity, price, product, sales_date_added):
-        """
-        Method tests if the params are empty
-        """
-        if quantity != "" and price != "" and product != "" and sales_date_added != "":
-            return True
-        return False
-
-    @staticmethod
-    def validate_sale(quantity, price, product, sales_date_added):
-        """"
-        Method returns the validation sales status
-        """
-        if DataValidation.sales_empty(quantity, price, product, sales_date_added):
-            if DataValidation.sales_str_values(product, sales_date_added):
-                if DataValidation.sales_int_values(quantity, price):
-                    return True
-                return jsonify({
-                    "status":"Bad Request",
-                    "message": "quanity and price fields should be integers"
-                }), 400
+        if self.typ == 'products':
+            if isinstance(self.req['quantity'], int) and isinstance(self.req['minQuantity'], int):
+                return True
             return jsonify({
-                "status":"Bad Request",
-                "message": "product, and salesDateAdded fields should be strings"
+                "success":False,
+                "error":{
+                    "code":400,
+                    "message":"quantity and minQuantity should be integers"
+                }
             }), 400
-        return jsonify({"status":"Bad Request", "message": "No field should be empty"}), 400
-        
+
+    def item_string_errors(self):
+        """
+        Methods for checking string error
+        """
+        if isinstance(self.req['product'], str):
+            return True
+        return jsonify({
+            "success":False,
+            "error":{
+                "code":400,
+                "message":"product should be a string"
+            }
+        }), 400
+
+    def item_empty_error(self):
+        """
+        Methods for checking empty error
+        """
+        if self.typ == 'sales':
+            if self.req['product'] != "" and self.req['quantity'] != "" and self.req['price'] != "":
+                return True
+        if self.typ == 'products':
+            if self.req['quantity'] != "" and self.req['minQuantity'] != "" and self.req['product'] != "":
+                return True
+        return jsonify({
+            "success":False,
+            "error":{
+                "code":400,
+                "message":"empty fields aren't allowed"
+            }
+        }), 400
+
+    def validation(self):
+        """
+        Methods for validity of data
+        """
+        if isinstance(self.item_empty_error(), bool):
+            if isinstance(self.item_string_errors(), bool):
+                if isinstance(self.item_int_errors(), bool):
+                    return True
+                return self.item_int_errors()
+            return self.item_string_errors()
+        return self.item_empty_error()
