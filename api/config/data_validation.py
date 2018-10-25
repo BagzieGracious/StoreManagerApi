@@ -7,41 +7,27 @@ class DataValidation:
     """
     Class with methods to return validation values
     """
-    def __init__(self, req, typ):
-        self.req = req
-        self.typ = typ
 
-    def item_int_errors(self):
+    def item_int_errors(self, *args):
         """
         Method for checking int errors
         """
-        if self.typ == 'sales':
-            if isinstance(self.req['quantity'], int) and isinstance(self.req['price'], int):
-                return True
-            return jsonify({
+        for param in args:
+            if not isinstance(param, int):
+                return jsonify({
                 "success":False,
                 "error":{
                     "code":400,
-                    "message":"quantity and price should be integers"
+                    "message":"{} should be integers".format(param)
                 }
             }), 400
+        return True
 
-        if self.typ == 'products':
-            if isinstance(self.req['quantity'], int) and isinstance(self.req['minQuantity'], int):
-                return True
-            return jsonify({
-                "success":False,
-                "error":{
-                    "code":400,
-                    "message":"quantity and minQuantity should be integers"
-                }
-            }), 400
-
-    def item_string_errors(self):
+    def item_string_errors(self, product):
         """
         Methods for checking string error
         """
-        if isinstance(self.req['product'], str):
+        if isinstance(product, str):
             return True
         return jsonify({
             "success":False,
@@ -51,32 +37,29 @@ class DataValidation:
             }
         }), 400
 
-    def item_empty_error(self):
+    def item_empty_error(self, *args):
         """
         Methods for checking empty error
         """
-        if self.typ == 'sales':
-            if self.req['product'] != "" and self.req['quantity'] != "" and self.req['price'] != "":
-                return True
-        if self.typ == 'products':
-            if self.req['quantity'] != "" and self.req['minQuantity'] != "" and self.req['product'] != "":
-                return True
-        return jsonify({
-            "success":False,
-            "error":{
-                "code":400,
-                "message":"empty fields aren't allowed"
-            }
-        }), 400
+        for param in args:
+            if param == "":
+                return jsonify({
+                    "success":False,
+                    "error":{
+                        "code":400,
+                        "message":"empty fields aren't allowed"
+                    }
+                }), 400
+        return True
 
-    def validation(self):
+    def validation(self, quantity, product, var):
         """
         Methods for validity of data
         """
-        if isinstance(self.item_empty_error(), bool):
-            if isinstance(self.item_string_errors(), bool):
-                if isinstance(self.item_int_errors(), bool):
+        if isinstance(self.item_empty_error(quantity, product, var), bool):
+            if isinstance(self.item_string_errors(product), bool):
+                if isinstance(self.item_int_errors(quantity, var), bool):
                     return True
-                return self.item_int_errors()
-            return self.item_string_errors()
-        return self.item_empty_error()
+                return self.item_int_errors(quantity, var)
+            return self.item_string_errors(product)
+        return self.item_empty_error(quantity, product, var)
